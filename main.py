@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException
-from starlette.responses import Response
 
 app = FastAPI()
 

@@ -1,5 +1,5 @@
 from typing import Optional
-from sqlmodel import SQLModel, Field, Relationship
+from sqlmodel import SQLModel, Field, Relationship, ForeignKey
 
 #Creation of classes with their respective attributes according to the needs of each table
 class Person(SQLModel, table=True):
@@ -12,6 +12,7 @@ class Person(SQLModel, table=True):
     email: str
     phone: str
     residence_places: list["ResidencePlace"] = Relationship(back_populates="person")
+    customer: Optional["Customer"] = Relationship(back_populates="person")
 
 
 class ResidencePlace(SQLModel, table=True):
@@ -39,8 +40,9 @@ class StaffPerformance(SQLModel, table=True):
 
 
 class Customer(SQLModel, table=True):
-    person_id: Optional[int] = Field(primary_key=True)
+    person_id: int = Field(foreign_key="person.id", primary_key=True)
     person: Optional[Person] = Relationship(back_populates="customer")
+
 
 
 class Messaging(SQLModel, table=True):
@@ -49,7 +51,6 @@ class Messaging(SQLModel, table=True):
     date: str
     accommodation_id: Optional[str] = Field(foreign_key="accommodation.name")
     customer_id: Optional[int] = Field(foreign_key="customer.person_id")
-
 
 class Reservation(SQLModel, table=True):
     id: Optional[int] = Field(primary_key=True)

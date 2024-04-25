@@ -1,6 +1,7 @@
 from typing import Optional
 from sqlmodel import SQLModel, Field, Relationship, ForeignKey
 
+
 #Creation of classes with their respective attributes according to the needs of each table
 class Person(SQLModel, table=True):
     id: Optional[int] = Field(primary_key=True)

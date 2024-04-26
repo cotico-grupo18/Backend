@@ -21,10 +21,7 @@ create_db_and_tables()
 @app.get("/")
 def root():
     return {"message": "Fast API in Python"}
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,

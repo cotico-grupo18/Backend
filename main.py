@@ -12,7 +12,7 @@ from reservationsController import router as reservation_controller_router
 from messagingController import router as messaging_controller_router
 from customersController import router as customer_controller_router
 from addicionalServicesController import router as addicional_services_controller
-
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 # Call the function to create the database and tables when starting the application
@@ -21,7 +21,18 @@ create_db_and_tables()
 @app.get("/")
 def root():
     return {"message": "Fast API in Python"}
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Agrupa los routers de cada conjunto de controladores
 app.include_router(persons_router, prefix="/persons", tags=["persons"])

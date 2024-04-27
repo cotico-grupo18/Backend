@@ -2,18 +2,20 @@ from fastapi import FastAPI, HTTPException, APIRouter
 from db import create_db_and_tables, engine
 from model import *
 from sqlmodel import Session, select
-from personsController import router as persons_router
-from residencePlacesController import router as residence_places_router
-from accommodationsController import router as accommodation_controller_router
-from staffController import router as staff_controller_router
-from staffPerformancesController import router as staff_performances_controller_router
-from roomsController import router as rooms_controller_router
-from reservationsController import router as reservation_controller_router
-from messagingController import router as messaging_controller_router
-from customersController import router as customer_controller_router
-from addicionalServicesController import router as addicional_services_controller
+#from Controller import*
+from Controller.persons_Controller import router as persons_router
+from Controller.accommodations_Controller import router as accommodation_controller_router
+from Controller.staff_Controller import router as staff_controller_router
+from Controller.staff_Performances_Controller import router as staff_performances_controller_router
+from Controller.rooms_Controller import router as rooms_controller_router
+from Controller.reservations_Controller import router as reservation_controller_router
+from Controller.messaging_Controller import router as messaging_controller_router
+from Controller.customers_Controller import router as customer_controller_router
+from Controller.addicionalServices_Controller import router as addicional_services_controller
 
 app = FastAPI()
+
+
 
 # Call the function to create the database and tables when starting the application
 create_db_and_tables()
@@ -22,10 +24,8 @@ create_db_and_tables()
 def root():
     return {"message": "Fast API in Python"}
 
-
-# Agrupa los routers de cada conjunto de controladores
+# Group routers from each set of controllers
 app.include_router(persons_router, prefix="/persons", tags=["persons"])
-app.include_router(residence_places_router, prefix="/residence_places", tags=["residence_places"])
 app.include_router(accommodation_controller_router, prefix="/accomodation_controller", tags=["accomodation"])
 app.include_router(staff_controller_router, prefix="/staff", tags=["staff"])
 app.include_router(staff_performances_controller_router, prefix="/staff_performances", tags=["staff_performances"])

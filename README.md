@@ -1,1 +1,4 @@
 # Cotico
+´´´python
+uvicorn 
+´´´

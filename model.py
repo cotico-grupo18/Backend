@@ -17,8 +17,6 @@ class Person(SQLModel, table=True):
     reservation_date_id: Optional[int] = Field(foreign_key="reservationdate.id")
     reservation_date: Optional["ReservationDate"] = Relationship(back_populates="person")
 
-    #accommodation_name: Optional[str] = Field(foreign_key="accommodation.name")
-    #accommodation: Optional["Accommodation"] = Relationship(back_populates="persons")
     additional_service_id: Optional[int] = Field(foreign_key="additionalservice.id")
     additional_service: Optional["AdditionalService"] = Relationship(back_populates="person")
 
@@ -151,7 +149,10 @@ class AdditionalService(SQLModel, table=True):
 
     plans_id: Optional[int] = Field(foreign_key="plans.id")
     plans: Optional["Plans"] = Relationship(back_populates="additional_services")
-
+    
+    person_id: Optional[int] = Field(foreign_key="person.id")
+    person: Optional["Person"] = Relationship(back_populates="additional_services")
+    
 
 class Plans(SQLModel, table=True):
     id: Optional[int] = Field(primary_key=True)

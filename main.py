@@ -2,16 +2,17 @@ from fastapi import FastAPI, HTTPException, APIRouter
 from db import create_db_and_tables, engine
 from model import *
 from sqlmodel import Session, select
+import uvicorn
 #from Controller import*
-from Controller.persons_Controller import router as persons_router
-from Controller.accommodations_Controller import router as accommodation_controller_router
-from Controller.staff_Controller import router as staff_controller_router
-from Controller.staff_Performances_Controller import router as staff_performances_controller_router
-from Controller.rooms_Controller import router as rooms_controller_router
-from Controller.reservations_Controller import router as reservation_controller_router
-from Controller.messaging_Controller import router as messaging_controller_router
-from Controller.customers_Controller import router as customer_controller_router
-from Controller.addicionalServices_Controller import router as addicional_services_controller
+from Controller.persons_controller import router as persons_router
+from Controller.accommodations_controller import router as accommodation_controller_router
+from Controller.staff_controller import router as staff_controller_router
+from Controller.staff_performances_controller import router as staff_performances_controller_router
+from Controller.rooms_controller import router as rooms_controller_router
+from Controller.reservations_controller import router as reservation_controller_router
+from Controller.messaging_controller import router as messaging_controller_router
+from Controller.customers_controller import router as customer_controller_router
+from Controller.addicional_services_controller import router as addicional_services_controller
 
 app = FastAPI()
 
@@ -34,3 +35,6 @@ app.include_router(reservation_controller_router, prefix="/reservation", tags=["
 app.include_router(messaging_controller_router, prefix="/messaging", tags=["messaging"])
 app.include_router(customer_controller_router, prefix="/customer", tags=["customer"])
 app.include_router(addicional_services_controller, prefix="/addicional", tags=["addicional"])
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)

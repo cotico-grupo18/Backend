@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from db import create_db_and_tables, engine
-from model import *
+from model_2 import *
 from sqlmodel import Session, select
 
 router = APIRouter()
@@ -13,7 +13,7 @@ def create_messaging(messaging: Messaging):
         session.commit()
         session.refresh(messaging)
         return messaging
-    
+
 
 @router.get("/messagings/")
 def get_messagings():
@@ -21,7 +21,7 @@ def get_messagings():
         statement = select(Messaging)
         messagings = session.exec(statement).all()
         return messagings
-    
+
 
 @router.delete("/messagings/{messaging_id}")
 def delete_messaging(messaging_id: int):
@@ -33,7 +33,6 @@ def delete_messaging(messaging_id: int):
         session.delete(messaging)
         session.commit()
         return {"message": "Messaging deleted successfully"}
-    
 
 
 @router.put("/messagings/{messaging_id}")

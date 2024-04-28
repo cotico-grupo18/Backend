@@ -1,10 +1,9 @@
 from fastapi import APIRouter, HTTPException
 from db import create_db_and_tables, engine
-from model import *
+from model_2 import *
 from sqlmodel import Session, select
 
 router = APIRouter()
-
 
 
 @router.post("/reservations/")
@@ -14,7 +13,7 @@ def create_reservation(reservation: Reservation):
         session.commit()
         session.refresh(reservation)
         return reservation
-    
+
 
 @router.get("/reservations/")
 def get_reservations():
@@ -22,7 +21,7 @@ def get_reservations():
         statement = select(Reservation)
         reservations = session.exec(statement).all()
         return reservations
-    
+
 
 @router.delete("/reservations/{reservation_id}")
 def delete_reservation(reservation_id: int):
@@ -34,7 +33,7 @@ def delete_reservation(reservation_id: int):
         session.delete(reservation)
         session.commit()
         return {"message": "Reservation deleted successfully"}
-    
+
 
 @router.put("/reservations/{reservation_id}")
 def update_reservation(reservation_id: int, updated_reservation: Reservation):

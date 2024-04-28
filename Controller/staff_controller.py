@@ -1,9 +1,10 @@
 from fastapi import APIRouter, HTTPException
 from db import create_db_and_tables, engine
-from model import *
+from model_2 import *
 from sqlmodel import Session, select
 
 router = APIRouter()
+
 
 @router.post("/staff/")
 def create_staff(staff: Staff):
@@ -12,7 +13,7 @@ def create_staff(staff: Staff):
         session.commit()
         session.refresh(staff)
         return staff
-    
+
 
 @router.get("/staff/")
 def get_staff():
@@ -32,7 +33,7 @@ def delete_staff(staff_id: int):
         session.delete(staff)
         session.commit()
         return {"message": "Staff deleted successfully"}
-    
+
 
 @router.put("/staff/{staff_id}")
 def update_staff(staff_id: int, updated_staff: Staff):
